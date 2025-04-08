@@ -1,0 +1,54 @@
+.wrapper{
+    display: flex;
+    flex-direction: column;
+    background-color: #222;  
+    position: fixed;
+    width: 180px;
+    height: 100%;
+    top: var(--height-navbar);  
+    left: 0;
+    user-select: none;
+}
+.btn-modifier{
+    background-color: inherit;
+}
+.list {
+    margin: 0;
+    color: #333;
+    li {
+        font-size: 14px;
+        font-weight: bold;
+        padding: 5px 10px;
+        cursor: pointer;
+        // Xóa hover trên li, chỉ áp dụng cho Link
+        &:hover {
+            color: inherit;
+            border-radius: inherit;
+        }
+    }
+    .link-modifier {
+        display: block;
+        color: gray;
+        text-decoration: none;
+        &:hover {
+            color: #e9ecef;
+            border-radius: 3px;
+        }
+    }
+}
+
+.list-item.active .link-modifier {
+    color: #fff; 
+    border-radius: 3px;
+}
+
+@media only screen and (max-width: 750px) {
+    .wrapper{
+        height: inherit;
+        width: 100%;
+        z-index: 1;
+        position: sticky;
+        top:46px;
+        margin-top: 46px;
+    }  
+}

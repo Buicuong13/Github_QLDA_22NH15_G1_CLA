@@ -1,0 +1,97 @@
+.modifier {
+  display: flex;
+  justify-content: center; /* Căn giữa các nút */
+  padding: 0;
+  margin-top: 20px;
+  list-style: none;
+
+  li {
+    margin: 0 5px; /* Khoảng cách giữa các nút */
+    list-style: none;
+    background-color: #007bff; /* Màu nền mặc định */
+    color: #fff; /* Màu chữ */
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 5px; /* Bo góc */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Hiệu ứng đổ bóng */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Hiệu ứng hover */
+    cursor: pointer;
+
+    a {
+      display: block;
+      padding: 8px 12px; /* Padding bên trong nút */
+      text-decoration: none;
+      color: inherit; /* Giữ màu chữ */
+    }
+
+    &:hover {
+      background-color: #0056b3; /* Màu nền khi hover */
+      transform: scale(1.1); /* Hiệu ứng phóng to nhẹ */
+    }
+
+    &.selected {
+      background-color: #28a745; /* Màu nền khi được chọn */
+      color: #fff;
+    }
+
+    &.disabled {
+      background-color: #ddd; /* Màu nền khi bị disable */
+      color: #888;
+      pointer-events: none; /* Vô hiệu hóa click */
+    }
+  }
+
+  .previous,
+  .next {
+    background-color: #6c757d; /* Màu nền cho nút "previous" và "next" */
+    color: #fff;
+
+    &:hover {
+      background-color: #5a6268; /* Màu khi hover */
+    }
+  }
+
+  .break {
+    background: none;
+    color: #333;
+    pointer-events: none; /* Không cho phép click */
+  }
+}
+
+.header{
+  text-align: center;
+  margin-bottom: 0px;
+}
+.block-search {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%; 
+  padding: 10px;
+}
+
+.input {
+  padding: 8px 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px 0 0 5px;
+  border: none;
+  outline: none;
+}
+
+.btn-search {
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 0 5px 5px 0; 
+  &:hover {
+    background-color: #0056b3;
+  }
+}
+
+
+  

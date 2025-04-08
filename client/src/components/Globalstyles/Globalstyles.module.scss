@@ -1,0 +1,22 @@
+@import-normalize;
+:root{
+    --height-navbar: 46px;
+}
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    text-rendering: optimizeSpeed;
+    margin: 0;
+    padding: 0;
+    background-color: #eaeaea;
+}
+*{
+    box-sizing: border-box;
+}
+
+span{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+

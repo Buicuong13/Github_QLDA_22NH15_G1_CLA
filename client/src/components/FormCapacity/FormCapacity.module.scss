@@ -1,0 +1,86 @@
+.wrapper {
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.5); // Màu nền đen mờ
+    bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+}
+
+.block {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    min-width: 450px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(0%);
+
+}
+
+.heading{
+    text-align: center;
+}
+
+.form  {
+    font-size: 1.8rem;
+    color: #333;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.album-control {
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    transition: border-color 0.3s;
+    &:focus {
+        outline: none;
+    }
+}
+
+.txt-area {
+    min-height: 80px;
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: border-color 0.3s;
+    &:focus {
+        outline: none;
+    }
+}
+
+.message-error{
+    text-align: left;
+    padding: 0;
+    margin: 0;
+    color: red;
+    font-size: 14px;
+}
+
+@media only screen and (max-width: 550px) {
+    .block {
+        min-width: 400px;
+    }
+}
+ 
+@media only screen and (max-width: 500px) {
+    .block {
+        min-width: 350px;
+    }
+}
+@media only screen and (max-width: 400px) {
+    .block {
+        min-width: 300px;
+    }   
+}

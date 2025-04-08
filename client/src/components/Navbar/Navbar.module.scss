@@ -1,0 +1,120 @@
+.wrapper{
+    position: fixed;
+    width: 100%;
+    height: var(--height-navbar);
+    background-color: rgba(255, 255, 255, .97);
+    color: black;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 0 13px rgba(0, 0, 0, .1);
+    z-index: 1;
+}
+.logo{
+    display: inline-block;
+    width: 128px;
+    height: 16px;
+    font-size: 14px;
+    color: #222;
+    margin: 18px 0 12px 18px;
+    background: url(https://imageshack.com/v2_images/sprite.png?v=12) -4px -4px no-repeat;
+    @media (max-width: 750px) {
+        width: 130px;
+    }
+    @media (max-width: 650px) {
+        width: 140px;
+    }
+
+}
+@media only screen and (max-width: 750px) {
+   .wrapper{
+       z-index: 2;
+   }
+   
+ }
+.actions{
+    margin-right: 3px;
+    position: relative;
+    user-select: none;
+
+}
+.option{
+    // margin-right: 10px;
+    // margin-left: 10px;
+    position: relative;
+    user-select: none;
+    cursor: pointer;
+    padding: 10px;
+
+}
+@media only screen and (max-width: 550px) {
+    .text-modifier{
+        display: none;
+    }
+    .fa-user-modifier {
+        display: none;
+    }
+   
+ }
+.fix-toolbar{
+    display: flex;
+    align-items: center;
+}
+.menu-items{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    width: 120px;
+    background-color: black;
+    top:35px;
+    right: 10px;   
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+}
+.upload-container{
+    display: flex;
+    align-items: center;
+}
+
+.upload{
+    position: fixed;    
+    left: 50%;
+    top: 30%;
+    min-width: 450px;
+    height: 150px;
+    transform: translate(-50%, -50%);
+    background-color: #efefef;  
+    padding: 30px 20px;
+}
+.frame{
+    margin-top: 10px;
+    width: 100%;
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+}
+.circle-xmark{
+    position: absolute;
+    top: 7px;
+    right: 7px;
+    cursor: pointer;
+    transition: .4s ease;
+    &:hover{
+        font-weight: 700;
+    }
+
+}
+
+.icon-modifier{
+    display: inline-block;
+    width: 10px;
+    text-align: center;
+    margin-right: 10px;
+}
+
+
+.fa-user-modifier{
+    background-color: white;
+    margin-right: 0px;
+}

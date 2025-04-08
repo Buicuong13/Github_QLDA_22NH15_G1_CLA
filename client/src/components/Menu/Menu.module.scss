@@ -1,0 +1,116 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    background-color: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    min-width: 250px;
+    overflow: hidden;
+    animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modifier {
+    display: flex;
+    align-items: center;
+    padding: 16px 20px;
+    background: linear-gradient(45deg, #1a202c, #2d3748);
+    color: #ffffff;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    
+    &:hover {
+        background: linear-gradient(45deg, #2d3748, #4a5568);
+        padding-left: 25px;
+    }
+    
+    span {
+        font-size: 15px;
+        font-weight: 500;
+        letter-spacing: 0.3px;
+    }
+    
+    span:first-of-type {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+}
+
+.icon-modifier {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    font-size: 16px;
+    color: #ffc246;
+    background: rgba(255, 194, 70, 0.1);
+    border-radius: 6px;
+    padding: 8px;
+    transition: all 0.3s ease;
+    
+    &:hover {
+        transform: rotate(20deg) scale(1.1);
+        background: rgba(255, 194, 70, 0.2);
+    }
+}
+
+.menu-item {
+    padding: 14px 20px;
+    font-size: 14px;
+    color: #4a5568;
+    background: white;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    
+    i {
+        font-size: 16px;
+        color: #718096;
+    }
+    
+    &:hover {
+        background: linear-gradient(to right, #f7fafc, #edf2f7);
+        color: #2d3748;
+        padding-left: 25px;
+        
+        i {
+            color: #4a5568;
+        }
+    }
+    
+    &:not(:last-child) {
+        border-bottom: 1px solid #edf2f7;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .wrapper {
+        min-width: 200px;
+    }
+    
+    .modifier, .menu-item {
+        padding: 12px 16px;
+    }
+    
+    .icon-modifier {
+        width: 18px;
+        height: 18px;
+        font-size: 14px;
+    }
+}

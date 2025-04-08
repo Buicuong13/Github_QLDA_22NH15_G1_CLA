@@ -1,0 +1,36 @@
+
+.wrapper {
+    flex-basis: calc(33.33% - 10px);
+    background-color: white;
+    padding: 8px 8px 15px 8px;
+    position: relative;
+    margin: 5px;
+}
+.img {
+    width: 100%;
+    object-fit: cover; 
+    height: 200px; 
+    border-radius: 8px; 
+}
+
+
+
+.icon-modifier {
+    position: relative;
+    cursor: pointer;
+}
+.block-option{
+    position:absolute;
+    bottom: 0;
+    right: 20;
+}
+
+
+.modifier-btn-checkbox{
+    position: absolute;
+    bottom: 5px;
+    right: 8px;
+    cursor: pointer;
+}
+
+    

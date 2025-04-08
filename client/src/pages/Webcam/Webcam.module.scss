@@ -1,0 +1,68 @@
+html, body {
+    height: 100%;
+    margin: 0; // Loại bỏ khoảng cách không mong muốn
+}
+
+.wrapper {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    position: relative;
+}
+.block-img{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 66px);
+    width: 100%;
+
+}
+.img{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+}
+.list-btn{
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.button {
+    background-color: rgba(255, 255, 255, 0.2); /* Màu nền trong suốt */
+    backdrop-filter: blur(5px); /* Hiệu ứng làm mờ nền */
+    border: 2px solid rgba(255, 255, 255, 0.3); /* Viền trong suốt */
+    padding: 12px 24px; /* Khoảng cách bên trong */
+    border-radius: 50px; /* Bo góc */
+    color: white; /* Màu chữ */
+    font-weight: 500; /* Độ đậm của chữ */
+    transition: all 0.3s ease; /* Hiệu ứng chuyển tiếp */
+
+    &:hover {
+        background-color: rgba(255, 255, 255, 0.3); /* Màu nền khi hover */
+        transform: translateY(-2px); /* Hiệu ứng dịch chuyển khi hover */
+    }
+}
+
+@media screen and (max-width:750px){
+    .block-img {
+        display: flex;
+        flex-direction: column;
+        width: 100%; /* Chiều rộng mong muốn */
+        height: calc(100vh - 206px);
+        position: relative;
+    }
+}
+
+.icon-modifier{
+    display: inline-block;
+    width: 10px;
+    text-align: center;
+    margin-right: 15px;
+}

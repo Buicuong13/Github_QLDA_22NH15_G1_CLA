@@ -1,0 +1,17 @@
+.wrapper{
+    height: 100vh;
+}
+
+.title {
+    line-height: normal;
+    margin: 0;
+
+    @media (max-width: 900px) {
+      font-size: 1.2rem; 
+       text-align: center;
+    }
+    @media (max-width: 750px) {
+      display: none;
+
+    }
+}

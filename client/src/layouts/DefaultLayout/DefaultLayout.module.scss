@@ -1,0 +1,34 @@
+.wrapper {
+    --margin-top-content: var(--height-navbar);
+}
+
+.container {
+    display: flex;
+}
+
+.block {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.main-content {
+    margin-left: 190px;
+    margin-top: var(--margin-top-content);
+    margin-right: 10px;
+    // height: calc(100vh - var(--margin-top-content) - 10px); /* Sửa lỗi cú pháp ở đây */
+}
+
+@media only screen and (max-width: 750px) {
+    .container{
+        display: flex;
+        flex-direction: column;
+    }
+    .main-content{
+        margin-top: 0px;
+        width: 100%;
+        margin-left: 0px;
+    }
+    .block{
+        margin-top: 0px;
+    }
+ }

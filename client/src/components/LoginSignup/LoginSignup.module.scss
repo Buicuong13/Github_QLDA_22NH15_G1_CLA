@@ -1,0 +1,105 @@
+.wrapper{
+    display: flex;
+    background-color: #f1f1f1;
+    height: 100vh;
+    align-items:center;
+    justify-content:space-around;
+    background-image: url(https://png.pngtree.com/thumb_back/fw800/background/20240522/pngtree-abstract-blurred-light-blue-teal-backdrop-vintage-style-soft-background-image_15684349.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover
+}
+
+.block__description{
+    text-align: center;
+}
+
+.login-title{
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+.login{
+    background-color: rgb(255, 255, 255);
+    width: 320px;
+    min-height: 200px;
+    border-radius: 7px;
+    padding: 10px;
+    text-align: center;
+}
+
+.group-control{
+    margin: 0 10px 10px 10px;
+    position: relative;
+}
+
+.login-control{
+    padding: 10px;  
+    border: 2px solid rgb(221, 223, 226);
+    border-radius: 5px;
+    outline: none;
+    font-size: 1.2rem;
+}
+
+.icon-modifier{
+    position: absolute;
+    right: 8px;
+    top:50%;
+    transform: translateY(-50%);
+    color: red;
+}
+
+.btn-login{
+    background-color: rgb(8, 102, 255);
+    color: white;  
+    width: 100%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border: none;
+    border-radius: 8px;
+    font-size: 20px;
+    transition: opacity 0.4s ease;
+    &:hover{
+        cursor: pointer;
+        opacity: 0.8;
+    }
+}
+
+.forgot{
+    margin-bottom: 10px;
+}
+
+.btn-signup{
+    background-color: #ffc246;
+    color: white;
+    width: 70%;
+    margin-bottom: 18px;
+    border: none;
+    border-radius: 8px;
+    padding: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: opacity 0.4s ease;
+    &:hover{
+        opacity: 0.8;
+    }
+}
+//Sign-up
+.signup-container{
+    position: fixed;
+    background-color: rgba(150, 148, 148, 0.8);
+    bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+}
+
+@media only screen and (max-width: 750px) {
+    .wrapper{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+}

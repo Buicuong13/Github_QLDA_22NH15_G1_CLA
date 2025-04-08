@@ -1,0 +1,26 @@
+.select-container {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.select {
+    padding: 8px;
+    font-size: 13px;
+    border: 2px solid #000;
+    border-radius: 5px;
+    width: 150px;
+    margin: 0 10px;
+    transition: border-color 0.3s;
+}
+
+.select:focus {
+    border-color: #4A90E2;
+    outline: none;
+}
+
+h1 {
+    color: #333;
+    text-align: center;
+    margin-top: 20px;
+}

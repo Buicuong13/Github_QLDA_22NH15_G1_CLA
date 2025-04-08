@@ -1,0 +1,54 @@
+.wrapper{
+    display: flex;
+    height: 100%;
+    
+}   
+.main{
+    user-select: none;
+    width: 60%;
+    margin: auto;
+    padding: 20px;
+    border-radius: 20px;
+    // background-color: red;
+    background-color: rgb(249 250 251);
+    
+}
+.title{
+    text-align: center;
+}
+.block-email{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    p{
+        margin: 0;
+    }
+}
+
+
+.submit{
+    margin-top: 10px    ;
+    text-align: center;
+}
+
+.control{
+    display: flex;
+    flex-direction: column;
+}
+
+.group-control{
+    background: #f5f6f7;
+    line-height: 20px;
+    border-radius: 5px;
+    border-style: none;
+    padding: 10px 0px;
+    padding-inline-start: 5px;
+    outline: none;
+        
+}
+
+@media screen and (max-width:750px) {
+    .main{
+        width: 80%;
+    }
+}

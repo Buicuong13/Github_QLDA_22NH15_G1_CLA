@@ -1,0 +1,26 @@
+.select-container {
+    display: flex; /* Sử dụng Flexbox */
+    justify-content: center; /* Căn giữa các select box */
+    margin: 20px 0; /* Khoảng cách trên và dưới */
+}
+
+.select {
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #000; /* Viền màu đen */
+    border-radius: 5px;
+    width: 150px; /* Đặt chiều rộng cho select */
+    margin: 0 10px; /* Khoảng cách giữa các select box */
+    transition: border-color 0.3s;
+}
+
+.select:focus {
+    border-color: #4A90E2; /* Màu viền khi focus */
+    outline: none; /* Xóa outline mặc định */
+}
+
+h1 {
+    color: #333; /* Màu tiêu đề */
+    text-align: center;
+    margin-top: 20px;
+}
