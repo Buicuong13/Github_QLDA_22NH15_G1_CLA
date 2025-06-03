@@ -10,8 +10,9 @@ import { useDispatch } from "react-redux";
 import { authAccount } from './redux/actions/auth';
 import { useSelector } from "react-redux";
 import ProctectRoute from './proctect_route'
+import ChatBox from './components/Chatbot/ChatBox.js'; // Thêm dòng này
 
-function App() {
+function App() {  
   const dispatch = useDispatch();
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   useEffect(() => {
@@ -56,6 +57,7 @@ function App() {
             })
           }
         </Routes>
+        <ChatBox /> {/* Thêm dòng này để chat box luôn hiển thị */}
       </div>
     </Router>
   );

@@ -96,6 +96,7 @@ const routes = [
         isPrivate: true,
         permission: true,
     },
+
 ]
 
 export default routes
