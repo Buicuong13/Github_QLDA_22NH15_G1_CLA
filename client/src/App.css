@@ -1,0 +1,247 @@
+html, body, #root, .app {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background: #f1f5f9;
+  overflow: hidden;
+}
+
+#root {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  text-align: initial;
+  background: none;
+  min-height: 100vh;
+  max-width: none;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+.dashboard {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 4px 32px 0 rgba(0,0,0,0.08);
+  padding: 2.5rem 2rem 2rem 2rem;
+  margin: 2rem auto;
+  max-width: 700px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.admin-dashboard {
+  border: 2px solid #6366f1;
+  background: linear-gradient(120deg, #f0fdfa 60%, #e0e7ff 100%);
+}
+
+.user-dashboard {
+  border: 2px solid #06b6d4;
+  background: linear-gradient(120deg, #e0e7ff 60%, #f0fdfa 100%);
+}
+
+.dashboard h2 {
+  color: #1e293b;
+  font-weight: 700;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.dashboard button {
+  background: linear-gradient(90deg, #6366f1 0%, #06b6d4 100%);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin: 1rem 0;
+  padding: 0.75rem 2rem;
+  transition: background 0.2s;
+}
+.dashboard button:hover {
+  background: linear-gradient(90deg, #06b6d4 0%, #6366f1 100%);
+}
+
+form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+input[type="file"], input[type="text"], input[type="email"] {
+  padding: 0.75rem 1rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+  transition: border 0.2s;
+}
+input:focus {
+  border: 1.5px solid #6366f1;
+}
+
+.content-list {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+.content-item {
+  background: #f8fafc;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.04);
+  padding: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.content-item h4 {
+  margin: 0.5rem 0 0.2rem 0;
+  color: #334155;
+}
+.content-item p {
+  color: #64748b;
+  font-size: 0.95rem;
+  margin-bottom: 0.5rem;
+}
+.content-item img, .content-item video {
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+  max-width: 100%;
+  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.06);
+}
+.content-item button {
+  margin-top: 0.5rem;
+  padding: 0.5rem 1.2rem;
+  font-size: 1rem;
+}
+
+.error {
+  margin-top: 1rem;
+  color: #ef4444;
+  background: #fef2f2;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 1rem;
+  text-align: center;
+}
+
+.admin-section {
+  background: #f1f5f9;
+  border-radius: 10px;
+  padding: 1.2rem 1rem;
+  margin-bottom: 2rem;
+  width: 100%;
+  text-align: left;
+  border-left: 4px solid #6366f1;
+}
+
+.sidebar-btn {
+  transition: background 0.18s, color 0.18s, box-shadow 0.18s;
+  position: relative;
+  z-index: 1;
+}
+.sidebar-btn:not(.active):hover {
+  background: #e0e7ef !important;
+  color: #6366f1 !important;
+  box-shadow: 0 2px 8px #6366f122;
+}
+.sidebar-btn.active {
+  /* Màu nền và chữ đậm hơn khi active, mỗi tab một màu riêng */
+  font-weight: 700;
+  color: #fff !important;
+}
+.sidebar-btn.active {
+  background: #6366f1 !important;
+}
+.sidebar-btn:nth-of-type(3).active {
+  background: #6366f1 !important;
+}
+.sidebar-btn:nth-of-type(4).active {
+  background: #6366f1 !important;
+}
+.sidebar-btn:nth-of-type(5).active {
+  background: #6366f1 !important;
+}
+/* Nút Đăng xuất: màu đậm hơn khi hover */
+.sidebar-logout-btn {
+  background: #ef4444;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 0;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: auto;
+  transition: background 0.18s, color 0.18s, box-shadow 0.18s;
+}
+.sidebar-logout-btn:hover {
+  background: #b91c1c;
+  color: #fff;
+  box-shadow: 0 2px 8px #ef444422;
+}
+
+/* Nút upload ảnh mới và các nút chính trong content */
+.upload-btn, .main-action-btn, .auth-btn {
+  background: linear-gradient(90deg,#6366f1 0%,#06b6d4 100%);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 24px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.2s, color 0.2s, transform 0.2s;
+}
+.upload-btn:hover, .auth-btn:hover {
+  background: #e0e7ef !important;
+  color: #6366f1 !important;
+  box-shadow: 0 8px 32px #6366f199, 0 2px 8px #a5b4fc55 !important;
+  transform: scale(1.05) !important;
+  border: 1.5px solid #6366f1 !important;
+  outline: none !important;
+}
+.upload-btn:hover, .main-action-btn:hover, .auth-btn:hover {
+  background: linear-gradient(90deg,#06b6d4 0%,#6366f1 100%);
+  color: #fff;
+  transform: scale(1.05);
+}

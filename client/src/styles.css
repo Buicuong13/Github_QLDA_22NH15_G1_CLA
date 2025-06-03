@@ -1,0 +1,97 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  padding: 24px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 500px;
+}
+
+.modal-content h3 {
+  margin: 0 0 20px;
+  color: #333;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: #555;
+  font-weight: 500;
+}
+
+.form-group input[type="text"],
+.form-group input[type="file"] {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.form-group input[type="file"] {
+  padding: 6px;
+  background: #f8fafc;
+  cursor: pointer;
+}
+
+.preview-container {
+  margin: 16px 0;
+  text-align: center;
+  background: #f8fafc;
+  padding: 16px;
+  border-radius: 8px;
+}
+
+.modal-buttons {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 24px;
+}
+
+.modal-buttons button {
+  padding: 8px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.modal-buttons button[type="submit"] {
+  background: #2196f3;
+  color: white;
+}
+
+.modal-buttons button[type="submit"]:disabled {
+  background: #90caf9;
+  cursor: not-allowed;
+}
+
+.modal-buttons button[type="button"] {
+  background: #f1f5f9;
+  color: #334155;
+}
+
+.modal-buttons button[type="button"]:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
