@@ -1,0 +1,97 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  gap: 20px;
+}
+
+.videoWrapper {
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.video {
+  width: 640px;
+  height: 480px;
+  object-fit: cover;
+}
+
+.videoPlaceholder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #aaa;
+}
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.input {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 16px;
+  width: 192px;
+}
+
+.button {
+  padding: 10px 20px;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  transition: background-color 0.3s;
+  cursor: pointer;
+}
+
+.button.disabled {
+  background-color: #e0e0e0;
+  color: #999;
+  cursor: not-allowed;
+}
+
+.button.blue {
+  background-color: #2563eb;
+  color: white;
+}
+
+.button.blue:hover {
+  background-color: #1d4ed8;
+}
+
+.button.green {
+  background-color: #16a34a;
+  color: white;
+}
+
+.button.green:hover {
+  background-color: #15803d;
+}
+
+.button.red {
+  background-color: #dc2626;
+  color: white;
+}
+
+.button.red:hover {
+  background-color: #b91c1c;
+}
+
+.statusMessage {
+  background-color: #f1f1f1;
+  padding: 10px 16px;
+  border-radius: 6px;
+  color: #333;
+}
