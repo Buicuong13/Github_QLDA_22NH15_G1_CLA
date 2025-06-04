@@ -4,6 +4,7 @@
 
 # Node.js dependencies
 node_modules/
+myenv/
 
 # Production builds
 build/
