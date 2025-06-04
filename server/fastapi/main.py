@@ -38,7 +38,7 @@ async def generate_frames(face_id: str):
     count = 0
     capture_done = False
 
-    while capture_active: 
+    while capture_active:
         with camera_lock:
             success, frame = cam.read()
 
@@ -53,7 +53,8 @@ async def generate_frames(face_id: str):
             cv2.rectangle(frame, (x, y), (x + w, y + h), (255, 0, 0), 2)
 
             if count < 30:
-                face_crop = gray[y:y+h, x:x+w]
+                # face_crop = gray[y:y+h, x:x+w]
+                face_crop = frame[y:y+h, x:x+w] 
                 count += 1
                 cv2.imwrite(f"{dataset_dir}/{face_id}_{count}.jpg", face_crop)
 
@@ -74,7 +75,7 @@ async def generate_frames(face_id: str):
     # Sau khi stop, tự động release camera
     with camera_lock:
         if cam is not None:
-            cam.release()
+            cam.release() 
             cam = None
 
 @app.get("/get_face")
@@ -134,6 +135,7 @@ class FaceRecognition:
             face_encoding = face_recognition.face_encodings(face_image)[0]
             self.known_face_encodings.append(face_encoding)
             self.known_face_names.append(image)
+
         print(self.known_face_names)
     def generate_frames(self):
         self.video_capture = cv2.VideoCapture(0)
@@ -142,35 +144,44 @@ class FaceRecognition:
         if not self.video_capture.isOpened():
             sys.exit('Video source not found...')
 
-        while self.running:  # <-- dùng self.running thay vì while True
+        while self.running:
             success, frame = self.video_capture.read()
             if not success:
                 break
 
-            if self.process_current_frame:
-                small_frame = cv2.resize(frame, (0, 0), fx=0.25, fy=0.25)
-                rgb_small_frame = small_frame[:, :, ::-1]
+            # Resize frame để tăng tốc độ nhận diện
+            small_frame = cv2.resize(frame, (0, 0), fx=0.25, fy=0.25)
+            rgb_small_frame = cv2.cvtColor(small_frame, cv2.COLOR_BGR2RGB)  # Đảm bảo là RGB
 
-                self.face_locations = face_recognition.face_locations(rgb_small_frame)
-                self.face_encodings = face_recognition.face_encodings(rgb_small_frame, self.face_locations)
+            # Lấy vị trí khuôn mặt trên ảnh nhỏ
+            self.face_locations = face_recognition.face_locations(rgb_small_frame)
+            # Nếu không tìm thấy khuôn mặt thì bỏ qua vòng lặp này
+            if not self.face_locations or len(self.face_locations) == 0:
+                ret, buffer = cv2.imencode('.jpg', frame)
+                frame = buffer.tobytes()
+                yield (b'--frame\r\n'
+                    b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+                continue
 
-                self.face_names = []
-                for face_encoding in self.face_encodings:
-                    matches = face_recognition.compare_faces(self.known_face_encodings, face_encoding)
-                    name = "Unknown" 
-                    confidence = 'Unknown'
+            # Lấy encoding trên ảnh nhỏ và vị trí khuôn mặt trên ảnh nhỏ
+            self.face_encodings = face_recognition.face_encodings(rgb_small_frame, self.face_locations)
 
-                    face_distances = face_recognition.face_distance(self.known_face_encodings, face_encoding)
+            self.face_names = []
+            for face_encoding in self.face_encodings:
+                matches = face_recognition.compare_faces(self.known_face_encodings, face_encoding)
+                name = "Unknown"
+                confidence = 'Unknown'
+
+                face_distances = face_recognition.face_distance(self.known_face_encodings, face_encoding)
+                if len(face_distances) > 0:
                     best_match_index = np.argmin(face_distances)
-
                     if matches[best_match_index]:
                         name = self.known_face_names[best_match_index]
                         confidence = face_cofidence(face_distances[best_match_index])
 
-                    self.face_names.append(f'{name} ({confidence})')
+                self.face_names.append(f'{name} ({confidence})')
 
-            self.process_current_frame = not self.process_current_frame
-
+            # Vẽ bounding box lên ảnh gốc (phải nhân 4 vị trí)
             for (top, right, bottom, left), name in zip(self.face_locations, self.face_names):
                 top *= 4
                 right *= 4
@@ -185,7 +196,7 @@ class FaceRecognition:
             frame = buffer.tobytes()
 
             yield (b'--frame\r\n'
-                   b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
         self.video_capture.release()
 
@@ -201,9 +212,8 @@ async def recognize_face(face_id: str = Query(..., description="ID của ngườ
 @app.get("/stop_recognize_face")
 async def stop_recognize_face():
     global face_recognition_instance
-    
     if face_recognition_instance:
-        # print('check turn off cam')
-        face_recognition_instance.running = False   
+        face_recognition_instance.running = False   # <-- gán lại để vòng lặp tự break
+        # VideoCapture sẽ tự release trong generate_frames luôn
         face_recognition_instance = None
     return {"message": "Face recognition camera stopped."}
