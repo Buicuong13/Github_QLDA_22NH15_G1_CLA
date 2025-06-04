@@ -34,8 +34,8 @@ const Album = {
     create: async (data, userId) => {
         try {
             const { albumName, description, location } = data;
-            const query = 'INSERT INTO album (userId, albumName, description, location) VALUES (?, ?, ?, ?)';
-            const [result] = await db.query(query, [userId, albumName, description, location]);
+            const query = 'INSERT INTO album (userId, albumName, description, location, isPrivate) VALUES (?, ?, ?, ?, ?)';
+            const [result] = await db.query(query, [userId, albumName, description, location, data.isPrivate]);
             return result.insertId;
         } catch (error) {
             console.error("Error creating album:", error);
@@ -44,9 +44,9 @@ const Album = {
     },
     update: async (id, data) => {
         try {
-            const { albumName, description } = data;
-            const query = 'UPDATE album SET albumName = ?, description = ? WHERE id = ?';
-            const [result] = await db.query(query, [albumName, description, id]);
+            const { albumName, description, isPrivate } = data;
+            const query = 'UPDATE album SET albumName = ?, description = ?, isPrivate = ? WHERE id = ?';
+            const [result] = await db.query(query, [albumName, description, isPrivate, id]);
             return result.affectedRows;
         } catch (error) {
             console.error("Error updating album:", error);

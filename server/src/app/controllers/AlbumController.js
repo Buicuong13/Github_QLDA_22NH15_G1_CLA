@@ -37,6 +37,8 @@ class AlbumController {
                 return res.status(400).json({ message: 'Album name is required' });
             }
             const { id } = req.user;
+            console.log('isPrivate:', data.isPrivate); // Log ra trạng thái bảo mật
+
             const album = await AlbumService.createAlbum(data, id);
             return res.status(201).json({ message: 'Album created successfully', album });
         } catch (error) {
@@ -75,6 +77,17 @@ class AlbumController {
                 return res.status(error.statusCode).json({ message: error.message });
             }
             return res.status(500).json({ error: 'Internal Server Error' });
+        }
+    }
+    async getAlbumDetailRaw(id) {
+        try {
+            const albumDetail = await AlbumService.findAlbumByUrlParams(id);
+            // console.log("Raw album detail:", albumDetail);
+            console.log("IsPrivate of album", albumDetail.isPrivate);
+            return albumDetail;
+        } catch (error) {
+            console.error("Error fetching raw album detail:", error);
+            throw error; // Rethrow to be handled by the calling function
         }
     }
 }

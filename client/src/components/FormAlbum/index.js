@@ -9,11 +9,13 @@ import Button from '../Button';
 import * as AlbumService from '../../services/albumService';
 const cx = classNames.bind(styles);
 
+// ...existing code...
 function FormAlbum({ title, setShowFormAlbum, albumDetail, isUpdate }) {
     const formik = useFormik({
         initialValues: {
             albumName: albumDetail?.albumName || '',
             description: albumDetail?.description || '',
+            isPrivate: albumDetail?.isPrivate || false, // Thêm dòng này
         },
         validationSchema: Yup.object({
             albumName: Yup.string()
@@ -30,6 +32,7 @@ function FormAlbum({ title, setShowFormAlbum, albumDetail, isUpdate }) {
                         albumName: values.albumName,
                         description: values.description,
                         location: uniqueId,
+                        isPrivate: values.isPrivate, // Thêm dòng này
                     });
                     window.location.reload();
                 } catch (error) {
@@ -42,7 +45,8 @@ function FormAlbum({ title, setShowFormAlbum, albumDetail, isUpdate }) {
                     const id = albumDetail.id;
                     const data = {
                         albumName: values.albumName,
-                        description: values.description
+                        description: values.description,
+                        isPrivate: values.isPrivate, // Thêm dòng này
                     }
                     try {
                         await AlbumService.updateAlbum(id, data);
@@ -88,6 +92,18 @@ function FormAlbum({ title, setShowFormAlbum, albumDetail, isUpdate }) {
                     {formik.touched.description && formik.errors.description && (
                         <p className={cx('message-error')}>{formik.errors.description}</p>
                     )}
+
+                    {/* Thêm box bảo mật */}
+                    <div className={cx('checkbox-row')}>
+                        <input
+                            type="checkbox"
+                            id="isPrivate"
+                            name="isPrivate"
+                            checked={formik.values.isPrivate}
+                            onChange={formik.handleChange}
+                        />
+                        <label htmlFor="isPrivate">Bảo mật</label>
+                    </div>
 
                     <div>
                         <Button first onClick={() => setShowFormAlbum(false)} type="button">

@@ -8,12 +8,26 @@ export const showAllAlbums = async () => {
         throw error;
     }
 }
+// export const showAlbumDetail = async (urlParams) => {
+//     try {
+//         const res = await request.get(`/album/${urlParams}`);
+//         return res
+//     } catch (error) {
+//         console.log(error);
+//         throw error;
+//     }
+// }
+
 export const showAlbumDetail = async (urlParams) => {
     try {
         const res = await request.get(`/album/${urlParams}`);
-        return res
+        // Trả về cả status và data để xử lý trường hợp 403
+        return { status: res.status, data: res.data };
     } catch (error) {
-        console.log(error);
+        // Nếu là lỗi từ server (vd: 403), trả về status và data lỗi
+        if (error.response) {
+            return { status: error.response.status, data: error.response.data };
+        }
         throw error;
     }
 }
