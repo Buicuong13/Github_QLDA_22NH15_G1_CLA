@@ -1,4 +1,4 @@
-from fastapi import Query
+from fastapi import Query,FastAPI
 from fastapi.responses import StreamingResponse, JSONResponse
 from threading import Lock
 import face_recognition
@@ -8,9 +8,17 @@ import numpy as np
 import math
 import sys
 import asyncio
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Hoặc thay "*" bằng danh sách domain cụ thể như ["http://localhost:3000"]
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 current_dir = os.path.dirname(os.path.abspath(__file__))
 cascade_path = os.path.join(current_dir, 'haarcascade_frontalface_default.xml')
 
@@ -30,7 +38,7 @@ async def generate_frames(face_id: str):
     count = 0
     capture_done = False
 
-    while capture_active:
+    while capture_active: 
         with camera_lock:
             success, frame = cam.read()
 
@@ -126,7 +134,6 @@ class FaceRecognition:
             face_encoding = face_recognition.face_encodings(face_image)[0]
             self.known_face_encodings.append(face_encoding)
             self.known_face_names.append(image)
-
         print(self.known_face_names)
     def generate_frames(self):
         self.video_capture = cv2.VideoCapture(0)
@@ -187,14 +194,16 @@ face_recognition_instance = None  # global
 @app.get("/recognize_face")
 async def recognize_face(face_id: str = Query(..., description="ID của người cần chụp")):
     global face_recognition_instance
+    capture_active = True
     face_recognition_instance = FaceRecognition(face_id)
     return StreamingResponse(face_recognition_instance.generate_frames(), media_type="multipart/x-mixed-replace; boundary=frame")
 
 @app.get("/stop_recognize_face")
 async def stop_recognize_face():
     global face_recognition_instance
+    
     if face_recognition_instance:
-        face_recognition_instance.running = False   # <-- gán lại để vòng lặp tự break
-        # VideoCapture sẽ tự release trong generate_frames luôn
+        # print('check turn off cam')
+        face_recognition_instance.running = False   
         face_recognition_instance = None
     return {"message": "Face recognition camera stopped."}

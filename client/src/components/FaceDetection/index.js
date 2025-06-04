@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import classNames from "classnames/bind";
-import styles from "./FaceDetection.module.css";
+import styles from "./FaceDetection.module.scss";
 
 const cx = classNames.bind(styles);
 
@@ -39,7 +39,6 @@ const FaceDetection = () => {
       setCaptureStatus("Please enter your name before recognizing");
       return;
     }
-
     const streamUrl = `http://localhost:8000/recognize_face?face_id=${encodeURIComponent(
       faceId
     )}&timestamp=${Date.now()}`;
