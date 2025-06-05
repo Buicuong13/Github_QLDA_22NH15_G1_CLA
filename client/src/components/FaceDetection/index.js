@@ -1,15 +1,16 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import classNames from "classnames/bind";
 import styles from "./FaceDetection.module.scss";
 
 const cx = classNames.bind(styles);
 
-const FaceDetection = () => {
+const FaceDetection = ({ onSuccess }) => {
   const [isStreaming, setIsStreaming] = useState(false);
   const [captureStatus, setCaptureStatus] = useState("");
   const [faceId, setFaceId] = useState("");
   const [imgSrc, setImgSrc] = useState("");
   const [recognizing, setRecognizing] = useState(false);
+  const pollInterval = useRef(null);
 
   useEffect(() => {
     return () => {
@@ -19,6 +20,31 @@ const FaceDetection = () => {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isStreaming, recognizing]);
+
+  // Polling function to check recognize status
+  useEffect(() => {
+    if (recognizing) {
+      pollInterval.current = setInterval(async () => {
+        try {
+          const res = await fetch("http://localhost:8000/recognize_status");
+          const data = await res.json();
+          if (data.success) {
+            clearInterval(pollInterval.current);
+            setRecognizing(false);
+            setImgSrc("");
+            setTimeout(() => {
+              if (onSuccess) onSuccess();
+            }, 800); // delay 0.8s cho camera kịp hiện
+          }
+        } catch (err) {
+          // ignore
+        }
+      }, 1500);
+    } else {
+      clearInterval(pollInterval.current);
+    }
+    return () => clearInterval(pollInterval.current);
+  }, [recognizing, onSuccess]);
 
   const startStreaming = () => {
     if (!faceId.trim()) {

@@ -53,8 +53,8 @@ class AlbumController {
         try {
             const { id } = req.user;
             const albumId = req.params.id;
-            const { albumName, description } = req.body;
-            const updatedAlbum = await AlbumService.updateAlbum(albumId, { albumName, description }, id);
+            const { albumName, description, isPrivate } = req.body;
+            const updatedAlbum = await AlbumService.updateAlbum(albumId, { albumName, description, isPrivate }, id);
             return res.status(200).json({ message: 'Album updated successfully.', album: updatedAlbum });
         } catch (error) {
             console.error('Error updating album:', error);

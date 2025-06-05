@@ -8,9 +8,9 @@ router.post("/", async (req, res) => {
   // console.log("OpenAI API Key:", process.env.OPENAI_API_KEY);
   try {
     const apiRes = await axios.post(
-      "https://api.openai.com/v1/chat/completions",
+      "http://127.0.0.1:1234/v1/chat/completions",
       {
-        model: "gpt-3.5-turbo",
+        model: "microsoft/phi-4-mini-reasoning",
         messages: [{ role: "user", content: question }]
       },
       {

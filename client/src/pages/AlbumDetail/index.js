@@ -8,7 +8,7 @@ import FormConfirm from '../../components/FormConfirm';
 import * as AlbumService from '../../services/albumService';
 import * as AlbumImageService from '../../services/albumImageService';
 
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import Header from './Header';
 import ImageCardList from '../../components/ImageCardList';
 import Toolbar from '../../components/Toolbar';
@@ -17,7 +17,11 @@ import { useImagesByAlbumId } from '../../hooks/useAlbumImage';
 const cx = classNames.bind(styles);
 function AlbumDetail() {
     const { id } = useParams();
+    const location = useLocation();
+    // Lấy album từ state nếu có (khi navigate từ xác thực khuôn mặt)
+    const albumFromState = location.state?.album;
     const { albumDetail } = useAlbumDetail(id);
+    const album = albumFromState || albumDetail;
     const { img, setImg } = useImagesByAlbumId(id);
     const [displayAlbums, setDisplayAlbums] = useState([]);
     const [listIdImgChecked, setListIdImgChecked] = useState([]);
@@ -130,9 +134,13 @@ function AlbumDetail() {
             }
         });
     }
+    // Nếu album chưa có (null) thì show loading hoặc album không tồn tại
+    if (!album) {
+        return <div className={cx('wrapper')}>Loading album...</div>;
+    }
     return (
         <div className={cx('wrapper')}>
-            <Header setShowFormConfirm={setShowFormConfirm} album={albumDetail} />
+            <Header setShowFormConfirm={setShowFormConfirm} album={album} />
             <ImageCardList
                 images={img}
                 displayAlbums={displayAlbums}

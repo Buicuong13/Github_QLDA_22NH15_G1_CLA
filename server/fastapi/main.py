@@ -27,6 +27,7 @@ camera_lock = Lock()
 face_detector = cv2.CascadeClassifier(cascade_path)
 capture_active = False
 capture_done = False  # Thêm biến báo đã chụp đủ 30 ảnh
+recognize_success = False  # Biến toàn cục báo nhận diện thành công
 
 async def generate_frames(face_id: str):
     global cam, capture_active, capture_done
@@ -138,8 +139,10 @@ class FaceRecognition:
 
         print(self.known_face_names)
     def generate_frames(self):
+        global recognize_success
         self.video_capture = cv2.VideoCapture(0)
         self.running = True
+        recognize_success = False  # Reset trạng thái khi bắt đầu nhận diện
 
         if not self.video_capture.isOpened():
             sys.exit('Video source not found...')
@@ -179,6 +182,7 @@ class FaceRecognition:
                     if confidence_value > 95:
                         name = self.face_id
                         confidence = face_cofidence(best_distance)
+                        recognize_success = True  # Đánh dấu nhận diện thành công
                     else:
                         name = "Unknown"
                         confidence = "Unknown"
@@ -220,3 +224,8 @@ async def stop_recognize_face():
         # VideoCapture sẽ tự release trong generate_frames luôn
         face_recognition_instance = None
     return {"message": "Face recognition camera stopped."}
+
+@app.get("/recognize_status")
+async def recognize_status():
+    global recognize_success
+    return {"success": recognize_success}

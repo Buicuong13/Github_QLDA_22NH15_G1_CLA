@@ -14,6 +14,7 @@ function Album() {
   const [showformAlbum, setShowFormAlbum] = useState(false);
   const [showFaceCam, setShowFaceCam] = useState(false);
   const [pendingAlbumId, setPendingAlbumId] = useState(null);
+  const [pendingAlbumInfo, setPendingAlbumInfo] = useState(null);
   const navigate = useNavigate();
 
   const handleOnclickDirect = async (e, obj) => {
@@ -23,17 +24,18 @@ function Album() {
       // Nếu cần xác thực khuôn mặt, bật camera
       setShowFaceCam(true);
       setPendingAlbumId(obj.location);
+      setPendingAlbumInfo(obj); // Lưu lại thông tin album ban đầu
     } else {
       // Nếu không bảo mật, chuyển trang như bình thường
-      navigate(`/album/${obj.location}`);
+      navigate(`/album/${obj.location}`, { state: { album: obj } });
     }
   };
 
   // Hàm xử lý sau khi xác thực khuôn mặt thành công
   const handleFaceAuthSuccess = () => {
     setShowFaceCam(false);
-    if (pendingAlbumId) {
-      navigate(`/album/${pendingAlbumId}`);
+    if (pendingAlbumId && pendingAlbumInfo) {
+      navigate(`/album/${pendingAlbumId}`, { state: { album: pendingAlbumInfo } });
     }
   };
 
@@ -62,7 +64,7 @@ function Album() {
         />
       )}
       {/* {showFaceCam && <FaceCamera onSuccess={handleFaceAuthSuccess} />} */}
-      {showFaceCam && <FaceDetection />}
+      {showFaceCam && <FaceDetection onSuccess={handleFaceAuthSuccess} />}
     </div>
   );
 }
