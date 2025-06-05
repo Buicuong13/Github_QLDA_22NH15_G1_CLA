@@ -76,6 +76,16 @@ const Album = {
             console.error("Error checking duplicate album name:", error);
             throw new Error("Unable to check for duplicate album name. Please try again later.");
         }
+    },
+    findAlbumById: async (id) => {
+        try {
+            const query = 'SELECT * FROM album WHERE id = ?';
+            const [rows] = await db.query(query, [id]);
+            return rows[0] || null;
+        } catch (error) {
+            console.error("Error finding album by id:", error);
+            throw new Error("Unable to find album by id. Please try again later.");
+        }
     }
 };
 

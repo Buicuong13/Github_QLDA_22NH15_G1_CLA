@@ -57,7 +57,7 @@ function App() {
             })
           }
         </Routes>
-        <ChatBox /> {/* Thêm dòng này để chat box luôn hiển thị */}
+        {isAuthenticated && <ChatBox />} {/* Chỉ hiển thị ChatBox khi đã đăng nhập */}
       </div>
     </Router>
   );

@@ -37,3 +37,13 @@ export const deleteMultipleImage = async (value) => {
         throw error;
     }
 }
+
+export const createMultipleImages = async (urls) => {
+    try {
+        const res = await request.post('/images/multiple', { urls });
+        return res;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+}

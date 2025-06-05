@@ -14,6 +14,7 @@ import ImageCardList from '../../components/ImageCardList';
 import Toolbar from '../../components/Toolbar';
 import { useAlbumDetail } from '../../hooks/useAlbum';
 import { useImagesByAlbumId } from '../../hooks/useAlbumImage';
+import { useAllAlbum } from '../../hooks/useAlbum';
 const cx = classNames.bind(styles);
 function AlbumDetail() {
     const { id } = useParams();
@@ -23,6 +24,7 @@ function AlbumDetail() {
     const { albumDetail } = useAlbumDetail(id);
     const album = albumFromState || albumDetail;
     const { img, setImg } = useImagesByAlbumId(id);
+    const { albums } = useAllAlbum();
     const [displayAlbums, setDisplayAlbums] = useState([]);
     const [listIdImgChecked, setListIdImgChecked] = useState([]);
     const [isDeleting, setIsDeleting] = useState(false);
@@ -71,7 +73,33 @@ function AlbumDetail() {
 
     const handleDeleteAlbum = (e) => {
         const deleteAlbum = async () => {
-            const id = albumDetail.id;
+            let id = albumDetail?.id;
+            let locationKey = albumDetail?.location;
+            // Nếu không có location, lấy từ useParams.id (URL)
+            if (!locationKey && id) {
+                locationKey = id; // id ở đây là useParams.id (location)
+            }
+            if (!id && !locationKey && typeof window !== 'undefined') {
+                // fallback: lấy từ URL cuối cùng
+                const pathParts = window.location.pathname.split('/');
+                locationKey = pathParts[pathParts.length - 1];
+            }
+            // Tìm id số trong albums theo location
+            if (!id && locationKey && albums && albums.length > 0) {
+                let found = albums.find(a => a.location === locationKey);
+                if (!found && albumDetail?.albumName) {
+                    found = albums.find(a => a.albumName === albumDetail.albumName);
+                }
+                id = found?.id;
+            }
+            console.log('DEBUG - albumDetail:', albumDetail);
+            console.log('DEBUG - albums:', albums);
+            console.log('DEBUG - locationKey:', locationKey);
+            console.log('DEBUG - id gửi lên xóa:', id);
+            if (!id) {
+                toast.error('Không xác định được id album để xóa!');
+                return;
+            }
             try {
                 await AlbumService.deleteAlbum(id);
                 window.location.href = "/album"

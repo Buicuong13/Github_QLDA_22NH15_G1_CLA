@@ -57,6 +57,14 @@ const AlbumService = {
     },
     deleteAlbum: async (id) => {
         try {
+            console.log('[DEBUG] deleteAlbum id:', id);
+            // Kiểm tra album có tồn tại không trước khi xóa
+            const album = await Album.findAlbumById(id);
+            console.log('[DEBUG] album from findAlbumById:', album);
+            if (!album) {
+                throw createError('Album not found.', 404);
+            }
+            // Bỏ kiểm tra isPrivate, cho phép xóa mọi album
             const idAlbumExists = await AlbumImage.findByIdAlbum(id);
             if (idAlbumExists) {
                 await AlbumImage.deleteByAlbumId(id);

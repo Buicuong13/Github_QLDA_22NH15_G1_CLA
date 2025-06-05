@@ -25,6 +25,23 @@ const ImageService = {
             throw error; // Ném lỗi lên controller để xử lý
         }
     },
+    uploadImages: async (urls, userId) => {
+        try {
+            if (!Array.isArray(urls) || urls.length === 0) {
+                throw createError('Image URLs are required.', 400);
+            }
+            const results = [];
+            for (const url of urls) {
+                if (!url) continue;
+                await Images.create(url, userId);
+                results.push(url);
+            }
+            return { message: 'Images uploaded successfully', uploaded: results };
+        } catch (error) {
+            console.error('Error uploading multiple images:', error);
+            throw error;
+        }
+    },
     deleteImage: async (imgId) => {
         try {
             const image = await Images.getImage(imgId);

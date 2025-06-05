@@ -65,6 +65,20 @@ class ImagesController {
             return res.status(500).json({ error: 'Internal Server Error' })
         }
     }
+    async postMultipleImages(req, res) {
+        try {
+            const { urls } = req.body;
+            const { id } = req.user;
+            const result = await ImageService.uploadImages(urls, id);
+            return res.status(201).json(result);
+        } catch (error) {
+            console.error('Error uploading multiple images:', error);
+            if (error.statusCode) {
+                return res.status(error.statusCode).json({ message: error.message });
+            }
+            return res.status(500).json({ error: 'Internal Server Error' });
+        }
+    }
 }
 
 export default new ImagesController();

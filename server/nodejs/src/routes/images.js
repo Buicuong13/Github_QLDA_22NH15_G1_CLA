@@ -9,6 +9,8 @@ router.get('/', ImagesController.showAllImage);
 
 router.post('/', ImagesController.postImages);
 
+router.post('/multiple', ImagesController.postMultipleImages);
+
 router.post('/delete/multiple', ImagesController.deleteMultiple);
 
 router.delete('/:id', ImagesController.deleteImages);

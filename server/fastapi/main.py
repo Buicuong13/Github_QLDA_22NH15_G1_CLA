@@ -145,10 +145,12 @@ class FaceRecognition:
     def encode_faces(self):  
         for image in os.listdir(f'dataset/detect_face/{self.face_id}'):
             face_image = face_recognition.load_image_file(f'dataset/detect_face/{self.face_id}/{image}')
-            print("face_image", face_image)
-            face_encoding = face_recognition.face_encodings(face_image)[0]
-            self.known_face_encodings.append(face_encoding)
-            self.known_face_names.append(image)
+            encodings = face_recognition.face_encodings(face_image)
+            if len(encodings) > 0:
+                self.known_face_encodings.append(encodings[0])
+                self.known_face_names.append(image)
+            else:
+                print(f"Không tìm thấy khuôn mặt trong ảnh: {image}")
 
         print(self.known_face_names)
     def generate_frames(self):

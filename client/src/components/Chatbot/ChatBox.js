@@ -10,19 +10,48 @@ const ChatBox = () => {
   ]);
   const [input, setInput] = useState("");
   const [minimized, setMinimized] = useState(false);
-  const [isComposing, setIsComposing] = useState(false); // Thêm dòng này
+  const [isComposing, setIsComposing] = useState(false);
+  const [showChat, setShowChat] = useState(false);
+  const [iconPosition, setIconPosition] = useState({ right: 32, bottom: 32 });
   const chatEndRef = useRef(null);
+  const iconRef = useRef(null);
+  const dragOffset = useRef({ x: 0, y: 0 });
+  const dragging = useRef(false);
 
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, minimized]);
+
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      if (!dragging.current) return;
+      const x = window.innerWidth - e.clientX - dragOffset.current.x;
+      const y = window.innerHeight - e.clientY - dragOffset.current.y;
+      setIconPosition({ right: Math.max(x, 0), bottom: Math.max(y, 0) });
+    };
+    const handleMouseUp = () => { dragging.current = false; };
+    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("mouseup", handleMouseUp);
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("mouseup", handleMouseUp);
+    };
+  }, []);
+
+  const startDrag = (e) => {
+    dragging.current = true;
+    const rect = iconRef.current.getBoundingClientRect();
+    dragOffset.current = {
+      x: rect.right - e.clientX,
+      y: rect.bottom - e.clientY
+    };
+  };
 
   const handleSend = async () => {
     if (!input.trim()) return;
     const question = input.trim();
     setMessages(msgs => [...msgs, { from: "user", text: question }]);
     setInput("");
-
     try {
       const res = await fetch("http://localhost:8080/chatbot", {
         method: "POST",
@@ -49,17 +78,44 @@ const ChatBox = () => {
     }
   };
 
+  if (!showChat) {
+    return (
+      <div
+        ref={iconRef}
+        className={styles.floatingIcon}
+        style={{ right: iconPosition.right, bottom: iconPosition.bottom }}
+        onMouseDown={startDrag}
+        onClick={() => setShowChat(true)}
+        title="Chatbot hỗ trợ"
+      >
+        🤖
+      </div>
+    );
+  }
+
   return (
-    <div className={`${styles.chatbox} ${minimized ? styles.minimized : ""}`}>
+    <div
+      className={`${styles.chatbox} ${minimized ? styles.minimized : ""}`}
+      style={{ right: iconPosition.right, bottom: iconPosition.bottom }}
+    >
       <div className={styles.header}>
         Hỗ trợ trực tuyến
-        <button
-          className={styles.minimizeBtn}
-          onClick={() => setMinimized(!minimized)}
-          title={minimized ? "Mở rộng" : "Thu nhỏ"}
-        >
-          {minimized ? "🔼" : "🔽"}
-        </button>
+        <div className={styles['header-actions']}>
+          <button
+            className={styles.minimizeBtn}
+            onClick={() => setMinimized(!minimized)}
+            title={minimized ? "Mở rộng" : "Thu nhỏ"}
+          >
+            {minimized ? "🔼" : "🔽"}
+          </button>
+          <button
+            className={styles.minimizeBtn}
+            onClick={() => setShowChat(false)}
+            title="Đóng chatbot"
+          >
+            ❌
+          </button>
+        </div>
       </div>
       {!minimized && (
         <>
@@ -94,8 +150,8 @@ const ChatBox = () => {
               value={input}
               onChange={e => setInput(e.target.value)}
               onKeyDown={handleKeyDown}
-              onCompositionStart={() => setIsComposing(true)}   // Thêm dòng này
-              onCompositionEnd={() => setIsComposing(false)}    // Thêm dòng này
+              onCompositionStart={() => setIsComposing(true)}
+              onCompositionEnd={() => setIsComposing(false)}
             />
             <button type="button" onClick={handleSend}>Gửi</button>
           </div>
