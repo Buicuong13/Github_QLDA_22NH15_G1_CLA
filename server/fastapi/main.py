@@ -224,8 +224,9 @@ face_recognition_instance = None  # global
 
 @app.get("/recognize_face")
 async def recognize_face(face_id: str = Query(..., description="ID của người cần chụp")):
-    global face_recognition_instance
+    global face_recognition_instance, recognize_success
     capture_active = True
+    recognize_success = False  # Reset trạng thái trước mỗi lần nhận diện mới
     face_recognition_instance = FaceRecognition(face_id)
     return StreamingResponse(face_recognition_instance.generate_frames(), media_type="multipart/x-mixed-replace; boundary=frame")
 

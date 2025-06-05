@@ -50,10 +50,10 @@ const FaceDetection = ({ onSuccess }) => {
           if (data.success) {
             clearInterval(pollInterval.current);
             setRecognizing(false);
-            setImgSrc("");
             setTimeout(() => {
+              setImgSrc("");
               if (onSuccess) onSuccess();
-            }, 800); // delay 0.8s cho camera kịp hiện
+            }, 3000); // delay 5s để hiển thị nhận diện khuôn mặt trước khi chuyển trang
           }
         } catch (err) {
           // ignore
@@ -66,7 +66,7 @@ const FaceDetection = ({ onSuccess }) => {
   }, [recognizing, onSuccess]);
 
   const recognizeFace = () => {
-    const faceId = "default"; // hardcoded or backend handles default
+    // const faceId = "default"; // hardcoded or backend handles default
     const streamUrl = `http://localhost:8000/recognize_face?face_id=${
       user.name
     }&timestamp=${Date.now()}`;
