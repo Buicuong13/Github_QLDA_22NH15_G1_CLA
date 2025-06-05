@@ -68,7 +68,20 @@ async def generate_frames(face_id: str):
         await asyncio.sleep(0.05)
 
         # Nếu đủ 30 ảnh thì tự động stop
-        if count >= 30:
+        if count >= 5:
+            for _ in range(20):  # gửi thêm 20 frame nữa để hiển thị thông báo khoảng 1 giây
+                if frame is not None and isinstance(frame, np.ndarray):
+                    frame_copy = frame.copy()
+                    cv2.putText(frame_copy, "Da quet xong 5 anh!", (50, 50),
+                                cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
+
+                    ret, buffer = cv2.imencode('.jpg', frame_copy)
+                    frame_bytes = buffer.tobytes()
+                    yield (b'--frame\r\n'
+                        b'Content-Type: image/jpeg\r\n\r\n' + frame_bytes + b'\r\n')
+
+                    await asyncio.sleep(0.05)
+
             capture_active = False
             capture_done = True
             break

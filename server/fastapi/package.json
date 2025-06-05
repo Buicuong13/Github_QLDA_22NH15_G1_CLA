@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "fastapi": "^0.0.8",
-    "numpy": "^0.0.1"
-  }
-}

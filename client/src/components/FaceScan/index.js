@@ -1,15 +1,14 @@
 import { useEffect, useState, useRef } from "react";
 import classNames from "classnames/bind";
-import styles from "./FaceDetection.module.scss";
+import styles from "./FaceScan.module.scss";
 import * as userService from "../../services/userService.js";
 
 const cx = classNames.bind(styles);
 
-const FaceDetection = ({ onSuccess }) => {
+const FaceScan = ({ onSuccess }) => {
+  const [isStreaming, setIsStreaming] = useState(false);
+  const [captureStatus, setCaptureStatus] = useState("");
   const [imgSrc, setImgSrc] = useState("");
-  const [recognizing, setRecognizing] = useState(false);
-  const pollInterval = useRef(null);
-
   const [user, setUser] = useState({
     name: "",
     email: "",
@@ -31,53 +30,29 @@ const FaceDetection = ({ onSuccess }) => {
       fetchApi();
     }
   }, []);
-
   useEffect(() => {
     return () => {
-      if (recognizing) {
+      if (isStreaming) {
         stopStreaming();
       }
     };
-  }, [recognizing]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isStreaming]);
 
-  // Polling function to check recognize status
-  useEffect(() => {
-    if (recognizing) {
-      pollInterval.current = setInterval(async () => {
-        try {
-          const res = await fetch("http://localhost:8000/recognize_status");
-          const data = await res.json();
-          if (data.success) {
-            clearInterval(pollInterval.current);
-            setRecognizing(false);
-            setImgSrc("");
-            setTimeout(() => {
-              if (onSuccess) onSuccess();
-            }, 800); // delay 0.8s cho camera kịp hiện
-          }
-        } catch (err) {
-          // ignore
-        }
-      }, 1500);
-    } else {
-      clearInterval(pollInterval.current);
-    }
-    return () => clearInterval(pollInterval.current);
-  }, [recognizing, onSuccess]);
+  const startStreaming = () => {
+    // Nếu bạn không dùng input nữa thì có thể dùng faceId cố định
 
-  const recognizeFace = () => {
-    const faceId = "default"; // hardcoded or backend handles default
-    const streamUrl = `http://localhost:8000/recognize_face?face_id=${
+    const streamUrl = `http://localhost:8000/get_face?face_id=${
       user.name
     }&timestamp=${Date.now()}`;
     setImgSrc(streamUrl);
-    setRecognizing(true);
+    setIsStreaming(true);
+    setCaptureStatus("");
   };
 
   const stopStreaming = async () => {
     try {
-      const stopUrl = "http://localhost:8000/stop_recognize_face";
-      const response = await fetch(stopUrl);
+      const response = await fetch("http://localhost:8000/stop_get_face");
       if (!response.ok) {
         console.error("Error stopping the camera");
       }
@@ -85,7 +60,7 @@ const FaceDetection = ({ onSuccess }) => {
       console.error("Connection error to the server:", error);
     } finally {
       setImgSrc("");
-      setRecognizing(false);
+      setIsStreaming(false);
     }
   };
 
@@ -105,19 +80,25 @@ const FaceDetection = ({ onSuccess }) => {
 
       <div className={cx("controls")}>
         <div className={cx("row")}>
-          {!recognizing ? (
-            <button onClick={recognizeFace} className={cx("button", "green")}>
-              Recognize Face
+          {!isStreaming ? (
+            <button onClick={startStreaming} className={cx("button", "blue")}>
+              Start Streaming
             </button>
           ) : (
             <button onClick={stopStreaming} className={cx("button", "red")}>
-              Stop Recognizing
+              Stop Streaming
             </button>
           )}
         </div>
+
+        {captureStatus && (
+          <div className={cx("statusMessage")}>
+            <p>{captureStatus}</p>
+          </div>
+        )}
       </div>
     </div>
   );
 };
 
-export default FaceDetection;
+export default FaceScan;

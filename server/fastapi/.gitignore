@@ -6,6 +6,7 @@
 node_modules/
 myenv/
 
+/.venv
 # Production builds
 build/
 dist/
