@@ -168,17 +168,20 @@ class FaceRecognition:
 
             self.face_names = []
             for face_encoding in self.face_encodings:
-                matches = face_recognition.compare_faces(self.known_face_encodings, face_encoding)
+                face_distances = face_recognition.face_distance(self.known_face_encodings, face_encoding)
                 name = "Unknown"
                 confidence = 'Unknown'
-
-                face_distances = face_recognition.face_distance(self.known_face_encodings, face_encoding)
                 if len(face_distances) > 0:
                     best_match_index = np.argmin(face_distances)
-                    if matches[best_match_index]:
-                        name = self.known_face_names[best_match_index]
-                        confidence = face_cofidence(face_distances[best_match_index])
-
+                    best_distance = face_distances[best_match_index]
+                    confidence_value = float(face_cofidence(best_distance).replace('%',''))
+                    # Nếu confidence > 95 thì hiện tên, ngược lại là Unknown
+                    if confidence_value > 95:
+                        name = self.face_id
+                        confidence = face_cofidence(best_distance)
+                    else:
+                        name = "Unknown"
+                        confidence = "Unknown"
                 self.face_names.append(f'{name} ({confidence})')
 
             # Vẽ bounding box lên ảnh gốc (phải nhân 4 vị trí)
