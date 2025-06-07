@@ -21,7 +21,7 @@
 
 .login{
     background-color: rgb(255, 255, 255);
-    width: 320px;
+    width: 340px;
     min-height: 200px;
     border-radius: 7px;
     padding: 10px;
@@ -29,11 +29,14 @@
 }
 
 .group-control{
-    margin: 0 10px 10px 10px;
+    margin: 0 0 10px 0;
     position: relative;
 }
 
 .login-control{
+    width: 96%;
+    margin: 0 auto;
+    display: block;
     padding: 10px;  
     border: 2px solid rgb(221, 223, 226);
     border-radius: 5px;
@@ -50,18 +53,23 @@
 }
 
 .btn-login{
-    background-color: rgb(8, 102, 255);
-    color: white;  
-    width: 100%;
+    background: linear-gradient(90deg, #6ec6ff 0%, #2196f3 100%) !important;
+    color: #fff !important;
+    width: 85% !important;
+    margin: 0 auto 10px auto !important;
+    display: block;
     padding-top: 10px;
     padding-bottom: 10px;
     border: none;
     border-radius: 8px;
     font-size: 20px;
-    transition: opacity 0.4s ease;
+    font-weight: 600;
+    transition: background 0.2s, opacity 0.4s;
     &:hover{
+        background: linear-gradient(90deg, #2196f3 0%, #6ec6ff 100%) !important;
+        color: #fff !important;
+        opacity: 0.9;
         cursor: pointer;
-        opacity: 0.8;
     }
 }
 
@@ -70,18 +78,21 @@
 }
 
 .btn-signup{
-    background-color: #ffc246;
-    color: white;
-    width: 70%;
-    margin-bottom: 18px;
+    background: linear-gradient(90deg, #6ec6ff 0%, #2196f3 100%) !important;
+    color: #fff !important;
+    width: 85% !important;
+    margin: 0 auto 10px auto !important;
+    display: block;
     border: none;
     border-radius: 8px;
     padding: 8px;
     font-size: 16px;
+    font-weight: 600;
     cursor: pointer;
-    transition: opacity 0.4s ease;
+    transition: background 0.2s, opacity 0.4s;
     &:hover{
-        opacity: 0.8;
+        background: linear-gradient(90deg, #2196f3 0%, #6ec6ff 100%) !important;
+        opacity: 0.9;
     }
 }
 //Sign-up

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import classNames from 'classnames/bind';
@@ -22,7 +22,12 @@ function AlbumDetail() {
     // Lấy album từ state nếu có (khi navigate từ xác thực khuôn mặt)
     const albumFromState = location.state?.album;
     const { albumDetail } = useAlbumDetail(id);
-    const album = albumFromState || albumDetail;
+    // Tạo state albumDetailState để quản lý album hiện tại
+    const [albumDetailState, setAlbumDetailState] = useState(albumFromState || albumDetail);
+    // Khi albumDetail thay đổi (fetch lại từ server), cập nhật state
+    useEffect(() => {
+        if (albumDetail) setAlbumDetailState(albumDetail);
+    }, [albumDetail]);
     const { img, setImg } = useImagesByAlbumId(id);
     const { albums } = useAllAlbum();
     const [displayAlbums, setDisplayAlbums] = useState([]);
@@ -163,12 +168,13 @@ function AlbumDetail() {
         });
     }
     // Nếu album chưa có (null) thì show loading hoặc album không tồn tại
-    if (!album) {
+    if (!albumDetailState) {
         return <div className={cx('wrapper')}>Loading album...</div>;
     }
     return (
         <div className={cx('wrapper')}>
-            <Header setShowFormConfirm={setShowFormConfirm} album={album} />
+            {/* Truyền setAlbumDetailState xuống Header để cập nhật ngay */}
+            <Header setShowFormConfirm={setShowFormConfirm} album={albumDetailState} setAlbumDetail={setAlbumDetailState} />
             <ImageCardList
                 images={img}
                 displayAlbums={displayAlbums}

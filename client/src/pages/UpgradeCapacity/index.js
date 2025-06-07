@@ -6,6 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Button from '../../components/Button'
 import { useHistoryUpgradeSuccess } from '../../hooks/useHistoryUpgrade';
 import { useAllCapacityPackage } from '../../hooks/useCapacity';
+import { Link } from 'react-router-dom';
 
 const cx = classnames.bind(styles);
 function UpgradeCapacity() {
@@ -40,7 +41,14 @@ function UpgradeCapacity() {
     }
     return (
         <div className={cx('wrapper')}>
-            <div className={cx('block')}>
+            <div style={{ width: '100%', display: 'flex', justifyContent: 'flex-start', marginTop: 24, marginBottom: 8, position: 'relative', zIndex: 2, paddingLeft: 48, minWidth: 240 }}>
+                <Link to="/home" style={{ textDecoration: 'none' }}>
+                    <Button first className={cx('back-btn-upgrade')}>
+                        Back to Home
+                    </Button>
+                </Link>
+            </div>
+            <div className={cx('block')} style={{ justifyContent: 'center', alignItems: 'center' }}>
                 {
                     capacityPackages && capacityPackages.map((item, index) => {
                         return <div className={cx('card')} key={index}>

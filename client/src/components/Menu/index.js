@@ -49,18 +49,16 @@ function Menu({ ImageObj, MenuItems, displayAlbums, setDisplayAlbums }) {
             )}
             {current.map((item, index) => (
                 item.id ? (
-                    <Button key={index} four onClick={(e) => handleAddImgToAlbum(e, item, ImageObj)}>
+                    <Button key={index} four className={cx('image-menu-item')} onClick={(e) => handleAddImgToAlbum(e, item, ImageObj)}>
                         {item.albumName}
-
                     </Button>
                 ) : (
-                    <Button key={index} four icon={<i className={`${item.icon} ${cx('icon-modifier')}`}></i>} onClick={(e) => item.handleOnclick(ImageObj, e)}>
+                    <Button key={index} four className={cx('image-menu-item')} icon={<i className={`${item.icon} ${cx('icon-modifier')}`}></i>} onClick={(e) => item.handleOnclick(ImageObj, e)}>
                         {item.name}
                     </Button>
                 )
             ))}
             <ToastContainer />
-
         </div>
     );
 }

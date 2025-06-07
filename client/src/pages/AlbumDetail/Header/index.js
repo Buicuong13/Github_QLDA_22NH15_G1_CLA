@@ -5,11 +5,11 @@ import FormAlbum from '../../../components/FormAlbum';
 import dayjs from 'dayjs';
 const cx = classNames.bind(styles)
 
-function Header({ setShowFormConfirm, album }) {
+function Header({ setShowFormConfirm, album, setAlbumDetail }) {
     const [fixAlbum, setFixAlbum] = useState(false);
 
     return (<div className={cx('wrapper')}>
-        {fixAlbum && <FormAlbum title={'Update Album'} setShowFormAlbum={setFixAlbum} albumDetail={album} isUpdate />}
+        {fixAlbum && <FormAlbum title={'Update Album'} setShowFormAlbum={setFixAlbum} albumDetail={album} isUpdate setAlbumDetail={setAlbumDetail} />}
         {album && (
             <div className={cx('block')}>
                 <div className={cx('title')}>

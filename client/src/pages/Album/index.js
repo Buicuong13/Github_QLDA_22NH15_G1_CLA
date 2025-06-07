@@ -7,6 +7,7 @@ import { useAllAlbum } from "../../hooks/useAlbum";
 import * as albumService from "../../services/albumService";
 import FaceCamera from "../../components/Camera"; // Giả sử bạn đã có component này
 import FaceDetection from "../../components/FaceDetection";
+import FaceDetectionModal from '../../components/FaceDetection/FaceDetectionModal';
 const cx = classNames.bind(styles);
 
 function Album() {
@@ -63,8 +64,10 @@ function Album() {
           setShowFormAlbum={setShowFormAlbum}
         />
       )}
-      {/* {showFaceCam && <FaceCamera onSuccess={handleFaceAuthSuccess} />} */}
-      {showFaceCam && <FaceDetection onSuccess={handleFaceAuthSuccess} />}
+      {/* Hiển thị camera xác thực khuôn mặt ở dạng modal */}
+      <FaceDetectionModal open={showFaceCam} onClose={() => setShowFaceCam(false)}>
+        <FaceDetection onSuccess={handleFaceAuthSuccess} />
+      </FaceDetectionModal>
     </div>
   );
 }

@@ -2,7 +2,7 @@ import classNames from 'classnames/bind'
 import styles from './Button.module.scss'
 import { Link } from 'react-router-dom'
 const cx = classNames.bind(styles)
-function Button({ to, href, first, second, third, four, five, children, className, icon, onClick, onBlur, type, disabled }) {
+function Button({ to, href, first, second, third, four, five, children, className, icon, onClick, onBlur, type, disabled, tooltip }) {
     let Comp = 'button';
     const props = {
         onClick,
@@ -19,6 +19,12 @@ function Button({ to, href, first, second, third, four, five, children, classNam
         Comp = 'a';
     }
 
+    // Tooltip support
+    if (tooltip) {
+        props['title'] = tooltip;
+        props['aria-label'] = tooltip;
+        props['tabIndex'] = 0;
+    }
 
     const classes = cx('wrapper', {
         [className]: className,
@@ -32,7 +38,7 @@ function Button({ to, href, first, second, third, four, five, children, classNam
     return (
         <Comp className={classes} {...props}>
             {icon && <span className={cx('icon')}>{icon}</span>}
-            <span className={cx('text')}>{children}</span>
+            {children && <span className={cx('text')}>{children}</span>}
         </Comp>
     )
 }

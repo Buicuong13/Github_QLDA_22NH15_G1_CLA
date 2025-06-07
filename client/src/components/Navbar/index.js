@@ -66,20 +66,24 @@ function NavBar({ mainLayout, defaultLayout, children }) {
       {defaultLayout && (
         <div className={cx("fix-toolbar")}>
           <div className={cx("actions")}>
-            <Button second onClick={() => setShowUpload(true)}>
-              UPLOAD
+            <Button
+              className={cx("uploadButton")}
+              onClick={() => setShowUpload(true)}
+              icon={<i className="fa-solid fa-cloud-arrow-up" />}
+              tooltip="Upload images"
+            >
+              Upload
             </Button>
           </div>
 
           <div className={cx("actions")}>
             <Button
-              icon={<i className="fa-regular fa-user"></i>}
-              className={cx("fa-user-modifier")}
-            ></Button>
-          </div>
-
-          <div className={cx("actions")}>
-            <Button to="/user" className={cx("text-modifier")}>
+              to="/user"
+              className={cx("userUploadBtn")}
+              icon={<i className="fa-solid fa-user-circle" style={{fontSize: 18, color: '#222', marginRight: 8}} />}
+              tooltip={user?.name || "Account"}
+              style={{background: 'none', boxShadow: 'none', color: '#222', border: 'none'}}
+            >
               {user ? user.name : ""}
             </Button>
           </div>
@@ -91,52 +95,42 @@ function NavBar({ mainLayout, defaultLayout, children }) {
           >
             <i className="fa-solid fa-ellipsis-vertical"></i>
             {showMenuItems && (
-              <div className={cx("menu-items")}>
+              <div className={cx("menu-items")}> 
                 <Button
                   to="/scan-face"
                   four
-                  icon={
-                    <i
-                      className={`fa-solid fa-camera ${cx("icon-modifier")}`}
-                    ></i>
-                  }
+                  className={cx('button', 'logout-fix')}
+                  icon={<i className={`fa-solid fa-camera icon`} />}
+                  tooltip="Scan khuôn mặt"
                 >
-                  ScanFace
+                  <span style={{marginLeft: 10}}>ScanFace</span>
                 </Button>
                 <Button
                   to="/user"
                   four
-                  icon={
-                    <i
-                      className={`fa-solid fa-gear ${cx("icon-modifier")}`}
-                    ></i>
-                  }
+                  className={cx('button', 'logout-fix')}
+                  icon={<i className={`fa-solid fa-gear icon`} />}
+                  tooltip="Cài đặt tài khoản"
                 >
-                  Settings
+                  <span style={{marginLeft: 10}}>Settings</span>
                 </Button>
                 <Button
                   to="/deleted/images"
                   four
-                  icon={
-                    <i
-                      className={`fa-solid fa-trash ${cx("icon-modifier")}`}
-                    ></i>
-                  }
+                  className={cx('button', 'logout-fix')}
+                  icon={<i className={`fa-solid fa-trash icon`} />}
+                  tooltip="Thùng rác"
                 >
-                  Recycle Bin
+                  <span style={{marginLeft: 10}}>Recycle Bin</span>
                 </Button>
                 <Button
                   four
+                  className={cx('button', 'logout-fix')}
                   onClick={() => dispatch(authLogout())}
-                  icon={
-                    <i
-                      className={`fa-solid fa-right-from-bracket ${cx(
-                        "icon-modifier"
-                      )}`}
-                    ></i>
-                  }
+                  icon={<i className={`fa-solid fa-right-from-bracket icon`} />}
+                  tooltip="Đăng xuất"
                 >
-                  Logout
+                  <span style={{marginLeft: 10}}>Logout</span>
                 </Button>
               </div>
             )}

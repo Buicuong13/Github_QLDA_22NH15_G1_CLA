@@ -9,8 +9,7 @@ import Button from '../Button';
 import * as AlbumService from '../../services/albumService';
 const cx = classNames.bind(styles);
 
-// ...existing code...
-function FormAlbum({ title, setShowFormAlbum, albumDetail, isUpdate }) {
+function FormAlbum({ title, setShowFormAlbum, albumDetail, isUpdate, setAlbumDetail }) {
     const formik = useFormik({
         initialValues: {
             albumName: albumDetail?.albumName || '',
@@ -50,7 +49,11 @@ function FormAlbum({ title, setShowFormAlbum, albumDetail, isUpdate }) {
                     }
                     try {
                         await AlbumService.updateAlbum(id, data);
-                        window.location.reload();
+                        if (setAlbumDetail) {
+                            setAlbumDetail((prev) => ({ ...prev, ...data }));
+                        }
+                        setShowFormAlbum(false);
+                        // Không reload trang nữa
                     } catch (error) {
                         formik.setFieldError('albumName', error.response.data.message);
                         console.log(error);
@@ -65,14 +68,14 @@ function FormAlbum({ title, setShowFormAlbum, albumDetail, isUpdate }) {
         <div className={cx('wrapper')}>
             <div className={cx('form')}>
                 <h2>{title}</h2>
-                <form onSubmit={formik.handleSubmit}>
+                <form onSubmit={formik.handleSubmit} autoComplete="off">
                     <Input
                         className={cx('album-control')}
                         type="text"
                         id="albumName"
                         name="albumName"
-                        placeholder="Album Name"
-                        autoComplete="albumName"
+                        placeholder="Tên album..."
+                        autoComplete="off"
                         value={formik.values.albumName}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
@@ -83,7 +86,7 @@ function FormAlbum({ title, setShowFormAlbum, albumDetail, isUpdate }) {
 
                     <textarea
                         className={cx('txt-area')}
-                        placeholder="Description"
+                        placeholder="Mô tả album..."
                         name="description"
                         value={formik.values.description}
                         onChange={formik.handleChange}
@@ -94,23 +97,24 @@ function FormAlbum({ title, setShowFormAlbum, albumDetail, isUpdate }) {
                     )}
 
                     {/* Thêm box bảo mật */}
-                    <div className={cx('checkbox-row')}>
+                    <div className={styles.formAlbumPrivateRow}>
+                        <label htmlFor="isPrivate" className={styles.formAlbumPrivateLabel}>Bảo mật</label>
                         <input
                             type="checkbox"
                             id="isPrivate"
                             name="isPrivate"
+                            className={styles.formAlbumPrivateCheckbox}
                             checked={formik.values.isPrivate}
                             onChange={formik.handleChange}
                         />
-                        <label htmlFor="isPrivate">Bảo mật</label>
                     </div>
 
-                    <div>
+                    <div style={{ display: 'flex', justifyContent: 'center', gap: 12 }}>
                         <Button first onClick={() => setShowFormAlbum(false)} type="button">
-                            Cancel
+                            Hủy
                         </Button>
                         <Button first type="submit">
-                            {isUpdate ? "Update" : "Add"}
+                            {isUpdate ? "Cập nhật" : "Thêm mới"}
                         </Button>
                     </div>
                 </form>

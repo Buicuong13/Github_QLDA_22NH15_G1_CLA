@@ -1,47 +1,141 @@
-.block{
-    margin-top: 46px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-    align-items: center;
-    min-height: calc(100vh - 46px);
-    background-image: url(https://i.pinimg.com/originals/37/03/e0/3703e09bc80464739094922d82e76954.jpg);
+.wrapper {
+    min-height: 100vh;
+    width: 100vw;
+    /* Nền ảnh data đẹp, phủ mờ nhẹ hơn để ảnh sáng hơn */
+    background: linear-gradient(120deg, #f8fffc55 0%, #e0eafc55 100%), url('https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=1200&q=80');
     background-size: cover;
     background-position: center;
-    
-}
-
-.card{
+    background-repeat: no-repeat;
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 30px 0 0 0;
+}
+
+.block {
+    margin-top: 56px;
+    display: flex;
+    flex-wrap: wrap;
     justify-content: center;
+    align-items: flex-start;
+    gap: 32px;
+    min-height: 60vh;
+    background: none;
+    width: 100%;
+    max-width: 1200px;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
     text-align: center;
-    padding: 20px;
-    width: 300px;
-    background-color: white;
-    margin-bottom: 20px;
-    gap:10px;
-    box-shadow: 0px 10px 10px #999;
+    padding: 28px 24px 22px 24px;
+    width: 290px;
+    min-height: 340px;
+    height: 340px;
+    background: rgba(255,255,255,0.98);
+    border-radius: 18px;
+    margin-bottom: 0;
+    gap: 14px;
+    box-shadow: 0 6px 32px 0 rgba(31, 38, 135, 0.13);
     cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1.5px solid #e0eafc;
+    transition: transform 0.25s, box-shadow 0.25s, border 0.2s;
+    position: relative;
 }
+
 .card:hover {
-    transform: translateY(-10px); 
-    box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.2); 
+    transform: translateY(-10px) scale(1.03);
+    box-shadow: 0 12px 32px 0 rgba(31, 38, 135, 0.18);
+    border: 1.5px solid #88c343;
+    background: #f8fffc;
 }
-.heading-title{
-    margin: 0px;
-    color: rgb(136, 195, 67);
+
+.heading-title {
+    margin: 0;
+    color: #1a2a6c;
+    font-size: 1.25rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
 }
-.heading-price{
-    margin: 0px;
-    color: rgb(59, 60, 62);
-    border-bottom: 1px solid rgb(136, 195, 67);
+
+.heading-price {
+    margin: 0;
+    color: #88c343;
+    font-size: 2.1rem;
+    font-weight: 700;
+    border-bottom: 2px solid #88c343;
+    padding-bottom: 6px;
+    margin-bottom: 8px;
+}
+
+.card span {
+    color: #444;
+    font-size: 1rem;
+    min-height: 40px;
+    margin-bottom: 8px;
 }
 
 .btn-disabled {
-    background-color: #d3d3d3;
-    color: #808080;
-    cursor: not-allowed;
-    border: 1px solid #ccc;
+    background: #e0e0e0 !important;
+    color: #888 !important;
+    cursor: not-allowed !important;
+    border: 1.5px solid #ccc !important;
+    box-shadow: none !important;
+    opacity: 0.7;
+}
+
+.card button {
+    margin-top: 10px;
+    width: 100%;
+    border-radius: 8px;
+    font-size: 1.08rem;
+    font-weight: 600;
+    padding: 10px 0;
+    background: linear-gradient(90deg, #88c343 0%, #b6e06c 100%);
+    color: #222;
+    border: none;
+    box-shadow: 0 2px 8px 0 rgba(136, 195, 67, 0.08);
+    transition: background 0.2s, color 0.2s, transform 0.15s;
+}
+
+.card button:hover:not(:disabled) {
+    background: linear-gradient(90deg, #b6e06c 0%, #88c343 100%);
+    color: #181818;
+    transform: translateY(-2px) scale(1.04);
+}
+
+.back-btn-upgrade {
+    min-width: 120px;
+    font-weight: 600;
+    background: none;
+    color: #2d3a4a;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.08rem;
+    padding: 10px 0;
+    margin-bottom: 18px;
+    margin-left: -12px;
+    margin-right: 0;
+    transition: background 0.2s, color 0.2s, transform 0.15s;
+}
+
+.back-btn-upgrade:hover, .back-btn-upgrade:focus {
+    background: linear-gradient(90deg, #6a7ba2 0%, #2d3a4a 100%);
+    color: #ffd600;
+    transform: translateY(-2px) scale(1.04);
+}
+
+@media (max-width: 900px) {
+    .block {
+        gap: 18px;
+    }
+    .card {
+        width: 90vw;
+        min-width: 220px;
+        max-width: 340px;
+    }
 }

@@ -47,6 +47,85 @@
         
 }
 
+.block-email p, .block-email strong, .block-email button, .block-email form, .block-email input,
+.submit button, form button {
+    margin-bottom: 10px;
+}
+
+.block-email {
+    gap: 12px;
+}
+
+.block-email form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+form button + button {
+    margin-left: 10px;
+    margin-top: 0;
+}
+
+.block-email button,
+.submit button,
+.block-email form button,
+.submit form button,
+form button {
+    background: linear-gradient(90deg, #ffc400 0%, #ffd600 100%) !important;
+    color: #222 !important;
+    border-radius: 8px !important;
+    font-weight: 600;
+    box-shadow: 0 2px 8px 0 #ffd60033;
+    border: none;
+    transition: background 0.2s, color 0.2s, transform 0.15s;
+}
+ß
+.block-email button:hover,
+.submit button:hover,
+.block-email form button:hover,
+.submit form button:hover,
+form button:hover {
+    background: linear-gradient(90deg, #ffd600 0%, #ffc400 100%) !important;
+    color: #1a2a6c !important;
+    transform: translateY(-2px) scale(1.04);
+}
+
+.block-email form label,
+.block-email form input,
+.block-email form button {
+    margin-top: 8px;
+}
+
+.block-email form input {
+    margin-bottom: 12px;
+}
+
+.block-email form label {
+    font-weight: 600;
+    color: #1a2a6c;
+    margin-bottom: 2px;
+    display: block;
+}
+
+.control label,
+.control input {
+    margin-top: 8px;
+}
+
+.control input {
+    margin-bottom: 12px;
+}
+
+.control label {
+    font-weight: 600;
+    color: #1a2a6c;
+    margin-bottom: 2px;
+    display: block;
+}
+
 @media screen and (max-width:750px) {
     .main{
         width: 80%;
