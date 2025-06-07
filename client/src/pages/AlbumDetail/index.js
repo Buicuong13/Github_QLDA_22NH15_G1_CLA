@@ -24,10 +24,10 @@ function AlbumDetail() {
     const { albumDetail } = useAlbumDetail(id);
     // Tạo state albumDetailState để quản lý album hiện tại
     const [albumDetailState, setAlbumDetailState] = useState(albumFromState || albumDetail);
-    // Khi albumDetail thay đổi (fetch lại từ server), cập nhật state
+    // Khi albumDetail thay đổi (fetch lại từ server), chỉ cập nhật nếu albumFromState không có
     useEffect(() => {
-        if (albumDetail) setAlbumDetailState(albumDetail);
-    }, [albumDetail]);
+        if (!albumFromState && albumDetail) setAlbumDetailState(albumDetail);
+    }, [albumDetail, albumFromState]);
     const { img, setImg } = useImagesByAlbumId(id);
     const { albums } = useAllAlbum();
     const [displayAlbums, setDisplayAlbums] = useState([]);

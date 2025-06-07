@@ -58,3 +58,12 @@ export const deleteAlbum = async (imgId) => {
         throw error;
     }
 }
+export const confirmFaceAuth = async (albumId) => {
+    try {
+        const res = await request.post(`/album/face-auth/${albumId}`);
+        return res;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+}

@@ -7,6 +7,7 @@ import { v4 as uuidv4 } from 'uuid';
 import Input from '../Input';
 import Button from '../Button';
 import * as AlbumService from '../../services/albumService';
+import { useEffect } from 'react';
 const cx = classNames.bind(styles);
 
 function FormAlbum({ title, setShowFormAlbum, albumDetail, isUpdate, setAlbumDetail }) {
@@ -63,6 +64,17 @@ function FormAlbum({ title, setShowFormAlbum, albumDetail, isUpdate, setAlbumDet
             }
         },
     });
+
+    // Đồng bộ lại giá trị form khi albumDetail thay đổi (ví dụ sau xác thực)
+    useEffect(() => {
+        if (albumDetail) {
+            formik.setValues({
+                albumName: albumDetail.albumName || '',
+                description: albumDetail.description || '',
+                isPrivate: Boolean(albumDetail.isPrivate), // Đảm bảo luôn là boolean
+            });
+        }
+    }, [albumDetail]);
 
     return (
         <div className={cx('wrapper')}>

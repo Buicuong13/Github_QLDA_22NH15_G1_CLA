@@ -21,22 +21,42 @@ function Album() {
   const handleOnclickDirect = async (e, obj) => {
     // Gọi API lấy chi tiết album
     const res = await albumService.showAlbumDetail(obj.location);
+    // Tạo object chứa đầy đủ thông tin album
+    const albumInfo = {
+      id: obj.id,
+      albumName: obj.albumName,
+      description: obj.description,
+      location: obj.location,
+      // ... thêm các trường khác nếu cần
+    };
     if (res.status === 403 && res.data?.requireFaceAuth) {
       // Nếu cần xác thực khuôn mặt, bật camera
       setShowFaceCam(true);
       setPendingAlbumId(obj.location);
-      setPendingAlbumInfo(obj); // Lưu lại thông tin album ban đầu
+      setPendingAlbumInfo(albumInfo); // Lưu lại thông tin album đầy đủ
     } else {
       // Nếu không bảo mật, chuyển trang như bình thường
-      navigate(`/album/${obj.location}`, { state: { album: obj } });
+      navigate(`/album/${obj.location}`, { state: { album: albumInfo } });
     }
   };
 
   // Hàm xử lý sau khi xác thực khuôn mặt thành công
-  const handleFaceAuthSuccess = () => {
+  const handleFaceAuthSuccess = async () => {
     setShowFaceCam(false);
     if (pendingAlbumId && pendingAlbumInfo) {
-      navigate(`/album/${pendingAlbumId}`, { state: { album: pendingAlbumInfo } });
+      try {
+        // Gọi API xác nhận xác thực khuôn mặt trước
+        await albumService.confirmFaceAuth(pendingAlbumId);
+        // Sau đó mới gọi lại API lấy chi tiết album
+        const res = await albumService.showAlbumDetail(pendingAlbumId);
+        if (res.status === 200 && res.data) {
+          navigate(`/album/${pendingAlbumId}`, { state: { album: res.data } });
+        } else {
+          navigate(`/album/${pendingAlbumId}`, { state: { album: pendingAlbumInfo } });
+        }
+      } catch (err) {
+        navigate(`/album/${pendingAlbumId}`, { state: { album: pendingAlbumInfo } });
+      }
     }
   };
 
