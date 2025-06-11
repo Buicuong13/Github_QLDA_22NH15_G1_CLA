@@ -61,7 +61,12 @@ function LoginSigup() {
 
     return (
       <div className={cx('wrapper', 'login-page-container')} style={{minHeight: '100vh', alignItems: 'center', justifyContent: 'center'}}>
-        <div style={{display: 'flex', width: '100%', maxWidth: 1100, margin: '0 auto', alignItems: 'center', justifyContent: 'center', gap: 32}}>
+        <div
+          className={cx({
+            'blurred-bg': showFormSignup,
+          })}
+          style={{display: 'flex', width: '100%', maxWidth: 1100, margin: '0 auto', alignItems: 'center', justifyContent: 'center', gap: 32, transition: 'filter 0.3s'}}
+        >
           <div className={cx('login-col-img')} style={{flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
             <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
               className={cx('login-img-fluid')} alt="Sample" style={{maxWidth: 420, width: '100%'}} />

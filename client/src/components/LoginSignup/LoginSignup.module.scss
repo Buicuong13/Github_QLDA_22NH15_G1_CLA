@@ -247,8 +247,8 @@
 }
 .login-form-label {
   position: absolute;
-  left: 16px;
-  top: -12px;
+  left: 10px;
+  top: -20px;
   font-size: 0.95rem;
   color: #1976d2;
   padding: 0 2px;
@@ -364,4 +364,11 @@
     font-size: 0.92rem;
     padding: 8px 2vw 10px 2vw;
   }
+}
+
+.blurred-bg {
+  filter: blur(4px) brightness(0.95) grayscale(0.1);
+  pointer-events: none;
+  user-select: none;
+  transition: filter 0.3s;
 }

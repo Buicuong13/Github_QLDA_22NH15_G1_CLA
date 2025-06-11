@@ -29,7 +29,7 @@ const IdentifyService = {
 
             const msg = {
                 to: email,
-                from: 'nguyenquocanh28032004@gmail.com', // Địa chỉ email gửi mã xác nhận
+                from: 'cuong1372004@gmail.com', // Địa chỉ email gửi mã xác nhận
                 subject: 'Password Reset Confirmation Code',
                 text: `Your confirmation code is: ${idCode}`,
             };
